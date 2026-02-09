@@ -1,1 +1,19 @@
- 
+<h1>Информация о запросе</h1>
+
+<p>Host: {{ host }}</p>
+<p>User Agent: {{ user_agent }}</p>
+<p>Path: {{ path }}</p>
+<p>Method: {{ method }}</p>
+<p>Cookies: {{ cookies }}</p>
+
+{% if get_params %}
+    <h2>GET параметры:</h2>
+    <ul>
+    {% for key, value in get_params.items %}
+        <li>{{ key }}: {{ value }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+<hr>
+<a href="/">На главную</a>

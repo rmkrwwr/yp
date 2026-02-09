@@ -1,1 +1,25 @@
- 
+<h1>Стартовая страница каталога</h1>
+
+<p>Всего курсов: {{ courses_count }}</p>
+<p>Всего авторов: {{ authors_count }}</p>
+
+<h2>Параметры из URL:</h2>
+<form>
+    <p>имя: <input type="text" name="name"></p>
+    <p>пароль: <input type="password" name="password"></p>
+    <button type="submit">Отправить</button>
+</form>
+
+{% if name %}
+    <p>Name: {{ name }}</p>
+    <p>Password: {{ password }}</p>
+{% endif %}
+
+<hr>
+<nav>
+    <a href="/">Главная</a> |
+    <a href="/courses/">Курсы</a> |
+    <a href="/authors/">Авторы</a> |
+    <a href="/info/">Информация</a> |
+    <a href="/about/">О сайте</a>
+</nav>
