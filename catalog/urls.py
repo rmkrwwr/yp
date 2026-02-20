@@ -10,4 +10,5 @@ urlpatterns = [
     path('info/', views.info, name='info'),
     re_path(r'^about/$', views.info, name='about'),
     path('site/<str:company>/<int:year>/', views.info, name='site_info'),
+    path('not-found/', views.not_found, name='not_found'),
 ]

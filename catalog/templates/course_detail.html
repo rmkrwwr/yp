@@ -1,6 +1,14 @@
 <h1>Курс: {{ course.title }}</h1>
-<h2>ID курса: {{ course.id }}</h2>
 <p>{{ course.description }}</p>
+<p>Длительность: {{ course.duration }}</p>
+<p>Цена: {{ course.price }} руб.</p>
+
+{% comment %} Ищем автора курса {% endcomment %}
+{% for author in authors %}
+    {% if author.id == course.author_id %}
+        <p>Автор: <a href="/author/{{ author.id }}/">{{ author.name }}</a></p>
+    {% endif %}
+{% endfor %}
 
 <hr>
 <a href="/courses/">Назад к списку курсов</a>

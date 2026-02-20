@@ -1,6 +1,22 @@
 <h1>Автор: {{ author.name }}</h1>
 <p>{{ author.bio }}</p>
+<p>Email: {{ author.email }}</p>
 <p>ID автора: {{ author.id }}</p>
+
+<h2>Курсы автора:</h2>
+{% if courses %}
+    <ul>
+    {% for course in courses %}
+        <li>
+            <a href="/course/{{ course.id }}/">
+                {{ course.title }} - {{ course.duration }} ({{ course.price }} руб.)
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>У автора пока нет курсов</p>
+{% endif %}
 
 <hr>
 <a href="/authors/">Назад к списку авторов</a>
