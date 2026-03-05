@@ -21,5 +21,6 @@ from catalog import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('catalog.urls')),
+    path('schedule/', include('schedule.urls')),
 ]
 handler404 = views.not_found

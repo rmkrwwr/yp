@@ -1,0 +1,61 @@
+{% extends 'schedule/base.html' %}
+
+{% block content %}
+<h1>ORM запросы (Примеры)</h1>
+
+<h2>все студенты курса</h2>
+<form method="get">
+    <select name="course_id">
+        {% for course in courses %}
+        <option value="{{ course.id }}">{{ course.title }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Показать</button>
+</form>
+
+{% if course_students %}
+<ul>
+    {% for student in course_students %}
+    <li>{{ student }}</li>
+    {% empty %}
+    <li>на этом курсе нет студентов</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<h2>преподаватели, у которых больше 1 курса</h2>
+<ul>
+    {% for teacher in teachers_more_than %}
+    <li>{{ teacher }} - {{ teacher.courses.count }} курсов</li>
+    {% empty %}
+    <li>Нет таких</li>
+    {% endfor %}
+</ul>
+
+<h2>3студенты без курсов</h2>
+<ul>
+    {% for student in students_no_courses %}
+    <li>{{ student }}</li>
+    {% empty %}
+    <li>все студенты записаны на курсы</li>
+    {% endfor %}
+</ul>
+
+<h2>преподаватели без профиля (TeacherInfo)</h2>
+<ul>
+    {% for teacher in teachers_no_info %}
+    <li>{{ teacher }}</li>
+    {% empty %}
+    <li>у всех преподавателей есть профиль</li>
+    {% endfor %}
+</ul>
+
+<h2>курсы без студентов</h2>
+<ul>
+    {% for course in courses_no_students %}
+    <li>{{ course }}</li>
+    {% empty %}
+    <li>на все курсы кто то записан</li>
+    {% endfor %}
+</ul>
+{% endblock %}
