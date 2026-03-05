@@ -1,34 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block title %}Расписание{% endblock %}</title>
+    <meta charset="utf-8">
+    <title>{% block title %}расписание{% endblock %}</title>
     <style>
-        body { font-family: Arial; margin: 20px; }
-        nav { background: #333; padding: 10px; }
+        body { font-family: Arial; margin: 0; padding: 0; }
+        header { background: #333; color: white; padding: 15px; }
+        nav { background: #444; padding: 10px; }
         nav a { color: white; margin: 10px; text-decoration: none; }
-        .messages { background: #d4edda; padding: 10px; margin: 10px 0; }
+        main { padding: 20px; min-height: 400px; }
+        footer { background: #333; color: white; text-align: center; padding: 10px; margin-top: 20px; }
         table { border-collapse: collapse; width: 100%; }
-        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
         th { background: #f2f2f2; }
-        .btn { padding: 5px 10px; background: #007bff; color: white; text-decoration: none; }
+        .error { color: red; }
     </style>
 </head>
 <body>
+    <header>
+        <h1>{% block header %}система управления курсами{% endblock %}</h1>
+    </header>
+
     <nav>
-        <a href="{% url 'teacher_list' %}">преподаватели</a>
-        <a href="{% url 'course_list' %}">курсы</a>
-        <a href="{% url 'student_list' %}">студенты</a>
-        <a href="{% url 'orm_queries' %}">ORM запросы</a>
+        <a href="{% url 'teacher_list' %}">список преподавателей</a>
+        <a href="{% url 'course_list' %}">список курсов</a>
+        <a href="{% url 'teacher_create' %}">добавить преподавателя</a>
+        <a href="{% url 'course_create' %}">добавить курс</a>
     </nav>
 
-    {% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    </div>
-    {% endif %}
+    <main>
+        {% if messages %}
+        <div style="background: #d4edda; padding: 10px; margin: 10px 0;">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
 
-    {% block content %}{% endblock %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>лабораторная работа 3 - django формы</p>
+    </footer>
 </body>
 </html>

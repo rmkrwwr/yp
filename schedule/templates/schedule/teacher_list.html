@@ -1,33 +1,34 @@
-<h1>Преподователи</h1>
+{% extends 'schedule/base.html' %}
 
-<a href="/schedule/teacher/create/">добавить преподователя</a>
+{% block content %}
+<h1>преподаватели</h1>
 
-<table border="1" style="width:100%">
-    <tr>
-        <th>id</th>
-        <th>имя</th>
-        <th>фамилия</th>
-        <th>почта</th>
-        <th>активен</th>
-        <th>действия</th>
-    </tr>
+{% if teachers %}
     {% for teacher in teachers %}
-    <tr>
-        <td>{{ teacher.id }}</td>
-        <td>{{ teacher.first_name }}</td>
-        <td>{{ teacher.last_name }}</td>
-        <td>{{ teacher.email }}</td>
-        <td>{% if teacher.is_active %}да{% else %}нет{% endif %}</td>
-        <td>
-            <a href="/schedule/teacher/{{ teacher.id }}/">открыть</a>
-            <a href="/schedule/teacher/{{ teacher.id }}/update/">править</a>
-            <a href="/schedule/teacher/{{ teacher.id }}/delete/">удалить</a>
-        </td>
-    </tr>
-    {% empty %}
-    <tr><td colspan="6">нет преподователей</td></tr>
+    <section style="border: 1px solid #ccc; margin: 10px 0; padding: 15px;">
+        <article>
+            <h2>{{ teacher.last_name }} {{ teacher.first_name }}</h2>
+            <p>email: {{ teacher.email }}</p>
+            
+            <h3>курсы:</h3>
+            <ul>
+                {% for course in teacher.courses.all %}
+                <li>{{ course.title }}</li>
+                {% empty %}
+                <li>нет курсов</li>
+                {% endfor %}
+            </ul>
+            
+            <p>
+                <a href="{% url 'teacher_detail' teacher.id %}">подробнее</a> |
+                <a href="{% url 'teacher_update' teacher.id %}">редактировать</a>
+            </p>
+        </article>
+    </section>
     {% endfor %}
-</table>
+{% else %}
+    <p>нет преподавателей</p>
+{% endif %}
 
-<br>
-<a href="/schedule/teachers/">назад</a>
+<a href="{% url 'teacher_create' %}">добавить преподавателя</a>
+{% endblock %}

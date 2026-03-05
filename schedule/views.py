@@ -1,8 +1,12 @@
+import datetime 
+from .forms import TeacherForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count
 from .models import Teacher, TeacherInfo, Course, Student
 from django import forms
 from django.contrib import messages
+
+
 
 class TeacherForm(forms.ModelForm):
     class Meta:
@@ -49,15 +53,30 @@ def teacher_create(request):
     if request.method == 'POST':
         form = TeacherForm(request.POST)
         if form.is_valid():
-            teacher = form.save()
-            TeacherInfo.objects.create(teacher=teacher)
-            messages.success(request, f'Преподаватель {teacher} создан!')
-            return redirect('teacher_detail', teacher_id=teacher.id)
+            teacher = Teacher.objects.create(
+                first_name=form.cleaned_data['first_name'],
+                last_name=form.cleaned_data['last_name'],
+                email=form.cleaned_data['email'],
+                hire_date=form.cleaned_data['hire_date'] or datetime.date.today(),
+                salary=form.cleaned_data['salary'],
+                is_active=form.cleaned_data['is_active']
+            )
+
+
+            TeacherInfo.objects.create(
+                teacher=teacher,
+                phone=form.cleaned_data.get('phone', ''),
+                birth_date=form.cleaned_data.get('birth_date'),
+                experience_years=form.cleaned_data.get('experience_years', 0),
+                bio=form.cleaned_data.get('bio', '')
+            )
+
+            messages.success(request, f'преподаватель {teacher} создан!')
+            return redirect('teacher_list')
     else:
         form = TeacherForm()
 
-    return render(request, 'schedule/teacher_form.html', {'form': form, 'title': 'Создать преподавателя'})
-
+    return render(request, 'schedule/teacher_form.html', {'form': form})
 
 def teacher_update(request, teacher_id):
     teacher = get_object_or_404(Teacher, id=teacher_id)

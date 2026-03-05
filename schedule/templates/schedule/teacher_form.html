@@ -1,9 +1,22 @@
-<h1>новый препод</h1>
+{% extends 'schedule/base.html' %}
+
+{% block content %}
+<h1>добавить преподавателя</h1>
 
 <form method="post">
     {% csrf_token %}
+    
+    {% if form.errors %}
+    <div style="background: #f8d7da; padding: 10px; margin: 10px 0;">
+        <h3>ошибки:</h3>
+        {{ form.errors }}
+    </div>
+    {% endif %}
+    
     {{ form.as_p }}
+    
     <button type="submit">сохранить</button>
 </form>
 
-<a href="/schedule/teachers/">отмена</a>
+<a href="{% url 'teacher_list' %}">отмена</a>
+{% endblock %}
