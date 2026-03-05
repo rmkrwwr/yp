@@ -1,0 +1,31 @@
+{% extends 'schedule/base.html' %}
+
+{% block content %}
+<h1>Преподаватель: {{ teacher.first_name }} {{ teacher.last_name }}</h1>
+
+<p><strong>Email:</strong> {{ teacher.email }}</p>
+<p><strong>Дата найма:</strong> {{ teacher.hire_date }}</p>
+<p><strong>Зарплата:</strong> {{ teacher.salary }}</p>
+<p><strong>Активен:</strong> {{ teacher.is_active|yesno:"Да,Нет" }}</p>
+
+<h2>Информация:</h2>
+{% if teacher.info %}
+    <p><strong>Телефон:</strong> {{ teacher.info.phone }}</p>
+    <p><strong>Дата рождения:</strong> {{ teacher.info.birth_date }}</p>
+    <p><strong>Стаж:</strong> {{ teacher.info.experience_years }} лет</p>
+    <p><strong>Био:</strong> {{ teacher.info.bio }}</p>
+{% else %}
+    <p>Нет дополнительной информации</p>
+{% endif %}
+
+<h2>Курсы преподавателя:</h2>
+<ul>
+    {% for course in teacher.courses.all %}
+    <li>{{ course.title }}</li>
+    {% empty %}
+    <li>Нет курсов</li>
+    {% endfor %}
+</ul>
+
+<a href="/schedule/teachers/">← Назад</a>
+{% endblock %}

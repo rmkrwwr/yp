@@ -1,0 +1,15 @@
+<h1>правим: {{ teacher.first_name }} {{ teacher.last_name }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <h3>основное:</h3>
+    {{ form.as_p }}
+
+    <h3>доп инфа:</h3>
+    {{ info_form.as_p }}
+
+    <button type="submit">сохранить</button>
+</form>
+
+<a href="/schedule/teachers/">отмена</a>

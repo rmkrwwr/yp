@@ -1,0 +1,9 @@
+<h1>удаление студента</h1>
+
+<p>точно удалить "{{ student.first_name }} {{ student.last_name }}"?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">да, удалить</button>
+    <a href="/schedule/students/">нет</a>
+</form>

@@ -1,0 +1,9 @@
+<h1>новый препод</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">сохранить</button>
+</form>
+
+<a href="/schedule/teachers/">отмена</a>

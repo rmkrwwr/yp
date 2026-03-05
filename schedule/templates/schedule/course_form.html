@@ -1,0 +1,9 @@
+<h1>{% if course %}правим{% else %}новый{% endif %} курс</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">сохранить</button>
+</form>
+
+<a href="/schedule/courses/">отмена</a>

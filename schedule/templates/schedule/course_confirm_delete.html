@@ -1,0 +1,9 @@
+<h1>удаление курса</h1>
+
+<p>точно удалить курс "{{ course.title }}"?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">да, удалить</button>
+    <a href="/schedule/courses/">нет</a>
+</form>

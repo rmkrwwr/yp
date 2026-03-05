@@ -1,15 +1,13 @@
-{% extends 'schedule/base.html' %}
+<h1>Преподователи</h1>
 
-{% block content %}
-<h1>список преподавателей</h1>
-<a href="{% url 'teacher_create' %}" class="btn">+ добавить преподавателя</a>
+<a href="/schedule/teacher/create/">добавить преподователя</a>
 
-<table>
+<table border="1" style="width:100%">
     <tr>
-        <th>ID</th>
+        <th>id</th>
         <th>имя</th>
         <th>фамилия</th>
-        <th>Email</th>
+        <th>почта</th>
         <th>активен</th>
         <th>действия</th>
     </tr>
@@ -19,22 +17,17 @@
         <td>{{ teacher.first_name }}</td>
         <td>{{ teacher.last_name }}</td>
         <td>{{ teacher.email }}</td>
-        <td>{{ teacher.is_active|yesno:"Да,Нет" }}</td>
+        <td>{% if teacher.is_active %}да{% else %}нет{% endif %}</td>
         <td>
-            <a href="{% url 'teacher_detail' teacher.id %}">просмотр</a>
-            <a href="{% url 'teacher_update' teacher.id %}">редактировать</a>
-            <a href="{% url 'teacher_delete' teacher.id %}">удалить</a>
+            <a href="/schedule/teacher/{{ teacher.id }}/">открыть</a>
+            <a href="/schedule/teacher/{{ teacher.id }}/update/">править</a>
+            <a href="/schedule/teacher/{{ teacher.id }}/delete/">удалить</a>
         </td>
     </tr>
+    {% empty %}
+    <tr><td colspan="6">нет преподователей</td></tr>
     {% endfor %}
 </table>
 
-<h2>преподаватели без профиля (TeacherInfo):</h2>
-<ul>
-    {% for teacher in teachers_without_info %}
-        <li>{{ teacher }} (нет профиля!!1)</li>
-    {% empty %}
-        <li>у всех есть профиль</li>
-    {% endfor %}
-</ul>
-{% endblock %}
+<br>
+<a href="/schedule/teachers/">назад</a>

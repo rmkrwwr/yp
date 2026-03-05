@@ -1,0 +1,46 @@
+<h1>курсы</h1>
+
+<a href="/schedule/course/create/">добавить курс</a>
+
+<form method="get">
+    фильтр по преподователю:
+    <select name="teacher">
+        <option value="">все</option>
+        {% for teacher in teachers %}
+        <option value="{{ teacher.id }}">{{ teacher }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">ок</button>
+</form>
+
+<table border="1" style="width:100%">
+    <tr>
+        <th>id</th>
+        <th>название</th>
+        <th>препод</th>
+        <th>уровень</th>
+        <th>цена</th>
+        <th>часов</th>
+        <th>действия</th>
+    </tr>
+    {% for course in courses %}
+    <tr>
+        <td>{{ course.id }}</td>
+        <td>{{ course.title }}</td>
+        <td>{% if course.teacher %}{{ course.teacher }}{% else %}-{% endif %}</td>
+        <td>{{ course.level }}</td>
+        <td>{{ course.price }}</td>
+        <td>{{ course.duration_hours }}</td>
+        <td>
+            <a href="/schedule/course/{{ course.id }}/update/">правка</a>
+            <a href="/schedule/course/{{ course.id }}/delete/">удалить</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="7">нет курсов</td></tr>
+    {% endfor %}
+</table>
+
+<br>
+<a href="/schedule/teachers/">преподы</a> |
+<a href="/schedule/students/">студенты</a>

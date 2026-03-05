@@ -1,0 +1,39 @@
+<h1>{% if student %}правим{% else %}новый{% endif %} студент</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <p>
+        <label>имя:</label><br>
+        <input type="text" name="first_name" value="{{ student.first_name|default:'' }}" required>
+    </p>
+
+    <p>
+        <label>фамилия:</label><br>
+        <input type="text" name="last_name" value="{{ student.last_name|default:'' }}" required>
+    </p>
+
+    <p>
+        <label>email:</label><br>
+        <input type="email" name="email" value="{{ student.email|default:'' }}" required>
+    </p>
+
+    <p>
+        <label>телефон:</label><br>
+        <input type="text" name="phone" value="{{ student.phone|default:'' }}">
+    </p>
+
+    <p>
+        <label>др (ГГГГ-ММ-ДД):</label><br>
+        <input type="date" name="birth_date" value="{{ student.birth_date|date:'Y-m-d'|default:'' }}">
+    </p>
+
+    <p>
+        <label>активенн:</label>
+        <input type="checkbox" name="is_active" {% if student.is_active or not student %}checked{% endif %}>
+    </p>
+
+    <button type="submit">сохранить</button>
+</form>
+
+<a href="/schedule/students/">отмена</a>

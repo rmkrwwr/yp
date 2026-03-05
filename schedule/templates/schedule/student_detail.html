@@ -1,0 +1,31 @@
+<h1>{{ student.first_name }} {{ student.last_name }}</h1>
+
+<p>почта: {{ student.email }}</p>
+<p>тел: {{ student.phone }}</p>
+<p>др: {{ student.birth_date }}</p>
+<p>дата зачисления: {{ student.enrollment_date }}</p>
+<p>активен: {% if student.is_active %}да{% else %}нет{% endif %}</p>
+
+<h2>курсы:</h2>
+<ul>
+    {% for course in student.courses.all %}
+    <li>
+        {{ course.title }}
+        <a href="/schedule/student/{{ student.id }}/drop/{{ course.id }}/">отписаться</a>
+    </li>
+    {% empty %}
+    <li>нет курсов</li>
+    {% endfor %}
+</ul>
+
+<h2>записать на курс:</h2>
+<form method="get" action="/schedule/student/{{ student.id }}/enroll/">
+    <select name="course_id">
+        {% for course in all_courses %}
+        <option value="{{ course.id }}">{{ course.title }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">записать</button>
+</form>
+
+<a href="/schedule/students/">назад</a>
